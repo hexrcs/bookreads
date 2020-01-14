@@ -20,7 +20,7 @@ yarn global add prisma2
 prisma2 dev
 ```
 
-This will watch the schema file changes, allow interacting with the DB. Also spins up Prisma 2 Studio at [http://localhost:5000](http://localhost:5555) for interacting the DB content directly in the browser.
+This will watch the schema file changes, allow interacting with the DB. Also spins up Prisma 2 Studio at [http://localhost:5555](http://localhost:5555) for interacting the DB content directly in the browser.
 
 ### Seed the DB
 
