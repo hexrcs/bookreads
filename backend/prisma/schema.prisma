@@ -1,0 +1,71 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator photon {
+  provider = "photonjs"
+}
+
+model User {
+  id            String    @default(cuid()) @id
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  email         String    @unique
+  name          String
+  userRole      UserRole  @default(USER)
+  bio           String    @default("")
+  password      String
+  comments      Comment[]
+  // // computed
+  // commentsCount Int       @default(0)
+}
+
+model Comment {
+  id        String   @default(cuid()) @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  content   String
+  book      Book
+  user      User
+  rating    Int
+}
+
+model Book {
+  id            String    @default(cuid()) @id
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  isbn          String?   @unique
+  name          String
+  genres        Genre[]
+  authors       Author[]
+  coverUrl      String?
+  description   String?
+  comments      Comment[]
+  // // computed
+  // commentsCount Int       @default(0)
+  // // computed
+  // rating        Float     @default(0)
+}
+
+model Genre {
+  id        String   @default(cuid()) @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String   @unique
+  books     Book[]
+}
+
+model Author {
+  id        String   @default(cuid()) @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // for simplicity, make author names unique
+  name      String   @unique
+  books     Book[]
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
